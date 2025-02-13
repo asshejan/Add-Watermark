@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image for Watermarking</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            text-align: center;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        form {
+            margin: 20px auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 350px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        form:hover {
+            transform: translateY(-5px);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-upload-label {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #3498db;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .file-upload-label:hover {
+            background: #2980b9;
+        }
+
+        button {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #27ae60;
+            transform: scale(1.05);
+        }
+
+        h3 {
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+
+        img {
+            margin-top: 20px;
+            max-width: 90%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.02);
+        }
+
+        .selected-file-name {
+            margin: 10px 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h2>Upload an Image to Add Watermark</h2>
+    
+    <form action="/" method="POST" enctype="multipart/form-data">
+        <label class="file-upload-label" for="file-upload">Choose File</label>
+        <input id="file-upload" type="file" name="image" required onchange="updateFileName(this)">
+        <div class="selected-file-name" id="file-name">No file chosen</div>
+        <button type="submit">Upload and Watermark</button>
+    </form>
+
+    {% if request.args.get("filename") %}
+        <h3>Watermarked Image:</h3>
+        <img src="{{ url_for('view_image', filename=request.args.get('filename')) }}" alt="Watermarked Image">
+    {% endif %}
+
+    <script>
+        function updateFileName(input) {
+            const fileName = input.files[0]?.name || 'No file chosen';
+            document.getElementById('file-name').textContent = fileName;
+        }
+    </script>
+</body>
+</html>
