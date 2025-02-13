@@ -4,7 +4,7 @@ A sleek web application that allows users to easily add watermarks to their imag
 
 # Preview 
 
-![Preview](uploads/watermarked.jpg)
+![Preview](watermarked.jpg)
 
 ## 🌟 Features
 
